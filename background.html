@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>background</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+        <script type="importmap">
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js",
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/"
+                }
+            }
+        </script>
+	</head>
+	<body>
+		<script type="module">
+
+			import * as THREE from 'three';
+
+			let SCREEN_WIDTH = window.innerWidth;
+			let SCREEN_HEIGHT = window.innerHeight;
+			let aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+			let container;
+			let camera, scene, renderer, lookAtPoint;
+			let cameraRig, activeCamera;
+			let cameraOrtho;
+			const frustumSize = 600;
+
+			init();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				scene = new THREE.Scene();
+
+				cameraOrtho = new THREE.OrthographicCamera( 0.5 * frustumSize * aspect / - 1, 0.5 * frustumSize * aspect, frustumSize / 2, frustumSize / - 2, 150, 1000 );
+
+				activeCamera = cameraOrtho;
+
+
+				// counteract different front orientation of cameras vs rig
+
+				cameraOrtho.rotation.y = Math.PI;
+
+				cameraRig = new THREE.Group();
+
+				cameraRig.add( cameraOrtho );
+
+				scene.add( cameraRig );
+
+				//
+                lookAtPoint = new THREE.Vector3(0, 0, 0);
+				scene.add( lookAtPoint );
+
+				const geometry = new THREE.BufferGeometry();
+				const vertices = [];
+
+				for ( let i = 0; i < 10000; i ++ ) {
+
+					vertices.push( THREE.MathUtils.randFloatSpread( 2000 ) ); // x
+					vertices.push( THREE.MathUtils.randFloatSpread( 2000 ) ); // y
+					vertices.push( THREE.MathUtils.randFloatSpread( 2000 ) ); // z
+
+				}
+
+				geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+
+				const particles = new THREE.Points( geometry, new THREE.PointsMaterial( { color: 0x888888 } ) );
+				scene.add( particles );
+
+				//
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+				renderer.setAnimationLoop( render);
+				container.appendChild( renderer.domElement );
+
+				renderer.setScissorTest( true );
+
+				window.addEventListener( 'resize', onWindowResize );
+			}
+
+			function onWindowResize() {
+
+				SCREEN_WIDTH = window.innerWidth;
+				SCREEN_HEIGHT = window.innerHeight;
+				aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+
+				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+
+				camera.aspect = 0.5 * aspect;
+				camera.updateProjectionMatrix();
+
+				cameraOrtho.left = - 0.5 * frustumSize * aspect;
+				cameraOrtho.right = 0.5 * frustumSize * aspect;
+				cameraOrtho.top = frustumSize / 2;
+				cameraOrtho.bottom = - frustumSize / 2;
+				cameraOrtho.updateProjectionMatrix();
+
+			}
+
+			function render() {
+
+				const r = Date.now() * 0.0001;
+
+		        lookAtPoint.setX(700 * Math.cos( r ));
+                lookAtPoint.setY(700 * Math.sin( r ));
+				lookAtPoint.setZ(700 * Math.sin( r ));
+
+                cameraOrtho.far = lookAtPoint.length();
+                cameraOrtho.updateProjectionMatrix();
+
+				cameraRig.lookAt( lookAtPoint);
+
+				renderer.setClearColor( 0x000000, 1 );
+				renderer.setScissor( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+				renderer.setViewport( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+				renderer.render( scene, activeCamera );
+
+			}
+
+		</script>
+
+	</body>
+</html>
