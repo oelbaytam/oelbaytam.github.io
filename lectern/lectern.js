@@ -121,7 +121,14 @@ function openGuestbook(url) {
     // Hide normal book UI, Show Iframe
     uiElements.forEach(el => el.classList.add('hidden-ui'));
     guestbookFrame.classList.remove('hidden-ui');
-    guestbookFrame.src = url;
+
+    // --- FIX: Use replace() instead of .src = ...
+    // This swaps the content without pushing a new "Back" button entry
+    if (guestbookFrame.contentWindow) {
+        guestbookFrame.contentWindow.location.replace(url);
+    } else {
+        guestbookFrame.src = url;
+    }
 }
 
 // --- Mode B: Text Book (Fetch) ---
@@ -231,8 +238,11 @@ document.getElementById('close-btn').addEventListener('click', () => {
     lecternImg.src = './public/lectern.png';
     statusText.innerText = "Drag book here";
     
-    // Reset everything
-    guestbookFrame.src = 'about:blank';
+    // --- FIX: Clear iframe without adding history
+    if (guestbookFrame.contentWindow) {
+        guestbookFrame.contentWindow.location.replace('about:blank');
+    }
+
     guestbookFrame.classList.add('hidden-ui');
     uiElements.forEach(el => el.classList.remove('hidden-ui'));
 });
