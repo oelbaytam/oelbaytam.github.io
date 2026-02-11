@@ -113,3 +113,15 @@ body {
     text-shadow: 1px 1px 0 #000;
 }
 .disc-wrapper:hover .disc-tooltip { visibility: visible; }
+
+/* --- Responsive Layout for Mobile --- */
+@media (max-width: 768px) {
+    .jukebox-layout {
+        flex-direction: column;
+        gap: 30px;
+        width: 95%;
+    }
+    .jukebox-container { order: 1; } /* Jukebox on top */
+    .disc-grid { order: 2; margin-bottom: 80px; } /* Discs below, space for player */
+
+}
