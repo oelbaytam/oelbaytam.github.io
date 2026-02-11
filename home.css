@@ -1,0 +1,99 @@
+:root {
+    --mctext:rgb(55,55,55);
+    --mcgen:rgb(191,191,191);
+    --mcbox:rgb(128,128,128);
+}
+@font-face {
+    font-family: Minecraft;
+    src: url(./public/Minecraft.ttf)
+}
+body{
+    padding: 0;
+    margin: 0;
+    font-family: Minecraft;
+    color: var(--mctext);
+}
+#container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+#background {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    pointer-events: none;
+    border: none;
+}
+.container {
+    position: fixed;
+    aspect-ratio: 1000 / 966; 
+    width: min(95vw, calc(70vh * (1000 / 966)));
+    max-height: 90vh;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    container-type: size;
+}
+
+#island {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: fill;
+    z-index: 1;
+}
+
+#jukebox {
+    clip-path: polygon(18.82% 30.32%, 26.24% 27.45%, 27.57% 32.53%, 31.6% 30.67%, 30.5% 25.05%, 36.87% 22.06%, 38.84% 23.06%, 39.16% 27.82%, 42.14% 30.39%, 42.35% 33.69%, 37.44% 36.8%, 37.6% 39.22%, 31.21% 43.33%, 29.47% 41.17%, 24.18% 44.57%)
+}
+#lectern {
+    clip-path: polygon(58.14% 30.17%, 60.99% 28.19%, 61.52% 23.47%, 63.44% 22.15%, 69.88% 24.99%, 68.64% 29.88%, 72.38% 31.81%, 74.27% 27.13%, 81.76% 30.37%, 76.11% 44.78%, 70.58% 41.38%, 68.99% 43.16%, 61.79% 38.64%, 62.95% 37.22%, 57.63% 34.17%)
+}
+
+.outline {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: fill; 
+}
+.outline:hover{
+    filter: drop-shadow(0 1px 0 rgb(255, 255, 255)) drop-shadow(0 -1px 0 rgb(255, 255, 255)) drop-shadow(1px 0 0 rgb(255, 255, 255)) drop-shadow(-1px 0 0 rgb(255, 255, 255));
+}
+
+.tooltip {
+    color: var(--mctext);
+    opacity: 0;
+    position: absolute;
+    background-color: var(--mcgen);
+    pointer-events: none;
+    border: 3px solid white;
+    white-space: nowrap;
+    z-index: 3;
+    font-size: 1.5cqi; 
+    padding: 0.5em;
+}
+.jukeboxTooltip {
+    top: 36%;
+    left: 28%;
+    rotate: 325deg;
+}
+.lecternTooltip {
+    top: 36%;
+    right: 30%;
+    rotate: 35deg;
+}
+.outline:hover~.tooltip {
+    opacity: 1;
+}

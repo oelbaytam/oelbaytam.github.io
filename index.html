@@ -1,23 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Home Page</title>
+		<title>Marcraft</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link type="text/css" rel="stylesheet" href="main.css">
-    	<script src="main.js"></script>
 	</head>
 	<body>
     <iframe id="background" src="background.html"></iframe>
-    <island class="container">
-     	 <img id="island" src="public/start.png">
-	 	<a href="jukebox/jukebox.html"><img class="outline" id="jukebox" src="public/jukeboxOutline.png">
-			<span class="tooltip jukeboxTooltip">Listen to some music!</span>
-		</a>
-		
-	 	 <a href="lectern/lectern.html"><img class="outline" id="lectern" src="public/lecternOutline.png">
-			<span class="tooltip lecternTooltip">Learn about me!</span>
-		</a>
-    </island>
+    <iframe id="container" src="home.html"></iframe>
+    <iframe id="player" class="hidden" src="./jukebox/player.html"></iframe>
 	</body>
 </html>

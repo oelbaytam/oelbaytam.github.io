@@ -1,0 +1,210 @@
+:root {
+    --mc-font: 'Minecraft', sans-serif;
+    --mc-text: #303030;
+    --mc-btn-bg: #c6c6c6;
+    --mc-tooltip-bg: #100010;
+    --mc-tooltip-border: #3f0858;
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    src: url('../public/Minecraft.ttf');
+}
+
+a:link, a:visited {
+  color: blue;
+}
+
+/* Base Layout */
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+
+    font-family: var(--mc-font);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Stack elements at bottom */
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    user-select: none; /* Prevents text selection while dragging */
+}
+
+/* --- 1. Preview Overlay --- */
+.preview_zone {
+    position: fixed;
+    top: 45%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    
+    width: 360px; 
+    height: 500px;
+    
+    background: url('./public/background.webp') no-repeat center;
+    background-size: 100% 100%;
+    
+    display: flex;
+    flex-direction: column;
+    padding: 45px 40px 60px 40px; 
+    box-sizing: border-box;
+    image-rendering: pixelated;
+}
+
+/* Guestbook Iframe */
+#guestbook-frame {
+    position: absolute;
+    top: 50px;       
+    left: 45px;     
+    width: 270px;   
+    height: 380px; 
+    border: none;
+    z-index: 200;
+    background: white; 
+    scrollbar-width: 0;
+}
+
+/* Text Book Content */
+.preview_book {
+    flex: 1;
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--mc-text);
+    margin-top: 15px;
+}
+
+/* --- Navigation & Page Numbers --- */
+
+/* Page Number (Top Right) */
+.preview_zone .page {
+    position: absolute;
+    top: 40px;
+    right: 55px;
+    font-size: 14px;
+    color: var(--mc-text);
+}
+
+/* Navigation Container */
+.preview_zone .nav {
+    position: absolute;
+    bottom: 35px; /* Fixed distance from bottom */
+    left: 60px;   /* Margin from left side of book */
+    right: 60px;  /* Margin from right side of book */
+    height: 0;    /* Height 0 ensures container doesn't block clicks */
+    pointer-events: none; 
+}
+
+/* Common Button Styles */
+.left, .right {
+    position: absolute; /* THIS PINS THEM IN PLACE */
+    bottom: 0;
+    width: 50px;   /* Increased from 40px */
+    height: 30px;  /* Increased height */
+    cursor: pointer;
+    background-size: 100% 100%;
+    pointer-events: auto; /* Re-enable clicks */
+}
+
+/* Specific Positions */
+.left { 
+    left: 0; /* Always stuck to the left of the container */
+    background-image: url('./public/left.png'); 
+}
+
+.right { 
+    right: 0; /* Always stuck to the right of the container */
+    background-image: url('./public/right.png'); 
+}
+
+/* Hover Effects */
+.left:hover { background-image: url('./public/leftHover.png'); }
+.right:hover { background-image: url('./public/rightHover.png'); }
+
+/* Utility to hide UI elements */
+.hidden-ui { display: none !important; }
+
+/* Close Button */
+#close-btn {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    font-family: var(--mc-font);
+    font-size: 16px;
+    padding: 8px 20px;
+    border: 3px solid black;
+    background: var(--mc-btn-bg);
+    box-shadow: inset -2px -2px 0px #555, inset 2px 2px 0px #FFF;
+    cursor: pointer;
+}
+#close-btn:active { box-shadow: inset 2px 2px 0px #555, inset -2px -2px 0px #FFF; }
+
+/* --- 2. Shelf & Books --- */
+.shelf {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 25px;
+    z-index: 10;
+}
+
+.book-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book {
+    width: 80px;
+    cursor: grab;
+    image-rendering: pixelated;
+    transition: transform 0.1s;
+}
+.book:hover { transform: translateY(-10px); }
+
+/* Tooltips */
+.book-tooltip {
+    visibility: hidden;
+    background-color: var(--mc-tooltip-bg);
+    color: #fff;
+    padding: 5px 10px;
+    border: 2px solid var(--mc-tooltip-border);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 20;
+    font-size: 14px;
+    text-shadow: 1px 1px 0 var(--mc-tooltip-border);
+    pointer-events: none;
+}
+.book-container:hover .book-tooltip { visibility: visible; }
+
+/* --- 3. Lectern Area --- */
+.lectern-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+    margin-bottom: 10px;
+}
+
+#lectern-main {
+    width: 250px;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+#book-status {
+    order: -1; /* Puts text above image */
+    color: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0px #000;
+    margin-bottom: 5px;
+}

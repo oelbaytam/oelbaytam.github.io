@@ -1,0 +1,115 @@
+:root {
+    --mc-font: 'Minecraft', sans-serif;
+    --mc-text: #303030;
+    --mc-btn-bg: #c6c6c6;
+    --mc-tooltip-bg: #100010;
+    --mc-tooltip-border: #3f0858;
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    src: url('../public/Minecraft.ttf');
+}
+
+/* Base Layout */
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    font-family: var(--mc-font);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Stack elements at bottom */
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    user-select: none; /* Prevents text selection while dragging */
+}
+
+/* --- Jukebox Page Layout --- */
+.jukebox-page {
+    justify-content: center; /* Center vertically */
+    flex-direction: row;     /* Default to row for desktop */
+}
+
+.jukebox-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px; /* Space between jukebox and discs */
+    width: 80%;
+    max-width: 1000px;
+}
+
+/* Left Side: Jukebox */
+.jukebox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+#jukebox-target {
+    width: 280px; /* Large Jukebox */
+    image-rendering: pixelated;
+    filter: drop-shadow(5px 5px 0px rgba(0,0,0,0.5));
+}
+
+.instruction-text {
+    color: #fff;
+    font-family: 'Minecraft', sans-serif;
+    text-shadow: 2px 2px 0 #000;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+/* Right Side: Disc Grid */
+.disc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns */
+    grid-template-rows: repeat(3, 1fr);    /* 3 Rows */
+    gap: 25px;
+    background: rgba(0, 0, 0, 0.3); /* Subtle shelf backing */
+    padding: 20px;
+    border: 3px solid #000;
+    box-shadow: inset 0 0 20px #000;
+}
+
+.disc-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.1s;
+}
+
+.disc-wrapper:hover {
+    transform: scale(1.1);
+}
+
+.disc {
+    width: 70px;
+    height: 70px;
+    cursor: grab;
+    image-rendering: pixelated;
+}
+
+/* Reuse Tooltip Style */
+.disc-tooltip {
+    visibility: hidden;
+    background-color: #100010;
+    color: #55FFFF; /* Cyan for discs */
+    padding: 5px 8px;
+    border: 2px solid #3f0858;
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 20;
+    pointer-events: none;
+    text-shadow: 1px 1px 0 #000;
+}
+.disc-wrapper:hover .disc-tooltip { visibility: visible; }

@@ -55,7 +55,6 @@
 
 				//
                 lookAtPoint = new THREE.Vector3(0, 0, 0);
-				scene.add( lookAtPoint );
 
 				const geometry = new THREE.BufferGeometry();
 				const vertices = [];
@@ -94,8 +93,11 @@
 
 				renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
 
-				camera.aspect = 0.5 * aspect;
+				if (!camera) return; 
+
+				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
+				renderer.setSize(window.innerWidth, window.innerHeight);
 
 				cameraOrtho.left = - 0.5 * frustumSize * aspect;
 				cameraOrtho.right = 0.5 * frustumSize * aspect;

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="lectern.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+    <div class="preview_zone" id="preview_zone" style="display: none;">
+        
+        <iframe id="guestbook-frame" class="hidden-ui" src="about:blank"></iframe>
+
+        <span class="page ui-element">Page <span class="npage">1</span> of <span class="totalpage">1</span></span>
+        <div class="preview_book ui-element"></div>
+        
+        <div class="nav ui-element">
+            <span class="left"></span>
+            <span class="right"></span>
+        </div>
+
+        <button id="close-btn">Close</button>
+    </div>
+
+    <div class="shelf">
+        <div class="book-container">
+            <span class="book-tooltip">About Me</span>
+            <img src="./public/writtenBook.webp" class="book" draggable="true" 
+                 data-type="written" data-content="about-me.md">
+        </div>
+
+        <div class="book-container">
+            <span class="book-tooltip">Projects</span>
+            <img src="./public/writtenBook.webp" class="book" draggable="true" 
+                 data-type="written" data-content="projects.md">
+        </div>
+        
+        <div class="book-container">
+            <span class="book-tooltip">Guestbook</span>
+            <img src="./public/bookAndQuill.webp" class="book" draggable="true" 
+                 data-type="guestbook" data-content="https://oelbaytam.atabook.org/">
+        </div>
+    </div>
+
+    <div class="lectern-container">
+        <p id="book-status">Drag book here</p>
+        <img src="./public/lectern.png" id="lectern-main" alt="Lectern">
+    </div>
+
+    <script src="lectern.js"></script>
+</body>
+</html>

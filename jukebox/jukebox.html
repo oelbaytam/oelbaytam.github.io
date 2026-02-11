@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./jukebox.css">
+</head>
+<body class="jukebox-page">
+
+    <div class="jukebox-layout">
+        <div class="jukebox-container">
+            <p class="instruction-text">Drag disc here</p>
+            <img src="./public/jukebox.png" id="jukebox-target" alt="Jukebox">
+        </div>
+
+        <div class="disc-grid">
+            <div class="disc-wrapper">
+                <span class="disc-tooltip">Stal</span>
+                <img src="./public/disc_black.png" class="disc" draggable="true" data-src="stal.mp3" data-name="C418 - Stal">
+            </div>
+            <div class="disc-wrapper">
+                <span class="disc-tooltip">For The King</span>
+                <img src="./public/disc_red.png" class="disc" draggable="true" data-src="for-the-king.mp3" data-name="Deadlock - For The King">
+            </div>
+            <div class="disc-wrapper">
+                <span class="disc-tooltip">clavar la espada</span>
+                <img src="./public/disc_blue.png" class="disc" draggable="true" data-src="clavar-la-espada.mp3" data-name="Shiro Sagisu - clavar la espada">
+            </div>
+            <div class="disc-wrapper">
+                <span class="disc-tooltip">Dedede´s Royal Payback</span>
+                <img src="./public/disc_green.png" class="disc" draggable="true" data-src="dededes-royal-payback.mp3" data-name="Kirby Triple Deluxe - Dedede´s Royal Payback">
+            </div>
+            <div class="disc-wrapper">
+                <span class="disc-tooltip">Beverly Chills</span>
+                <img src="./public/disc_purple.png" class="disc" draggable="true" data-src="beverly-chills.mp3" data-name="Lethal League Blaze - Beverly Chills">
+            </div>
+            <div class="disc-wrapper">
+                <span class="disc-tooltip">Comet Observatory 2</span>
+                <img src="./public/disc_white.png" class="disc" draggable="true" data-src="comet-observatory2.mp3" data-name="Super Mario Galaxy - Comet Observatory 2">
+            </div>
+        </div>
+    </div>
+
+    <script src="jukebox.js"></script>
+</body>
+</html>

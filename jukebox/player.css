@@ -1,0 +1,345 @@
+:root {
+    --mc-font: 'Minecraft', sans-serif;
+    --mc-text: #303030;
+    --mc-btn-bg: #c6c6c6;
+    --mc-tooltip-bg: #100010;
+    --mc-tooltip-border: #3f0858;
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    src: url('../public/Minecraft.ttf');
+}
+
+/* --- Minecraft Music Player Widget --- */
+#mc-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: #c6c6c6; /* MC GUI Grey */
+    border: 3px solid #000;
+    /* 3D Border Effect */
+    box-shadow: 
+        inset 2px 2px 0px #FFF, 
+        inset -2px -2px 0px #555,
+        4px 4px 0px rgba(0,0,0,0.5); 
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 500;
+    font-family: 'Minecraft', sans-serif;
+    transition: transform 0.3s ease-in-out;
+}
+
+.hidden-player {
+    transform: translateY(150%); /* Slide off screen */
+}
+
+.player-header {
+    background: #000;
+    color: #55FFFF; /* Diamond Blue */
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    border: 2px solid #555;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.player-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.mc-btn {
+    background: #8b8b8b;
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 #ddd, inset -2px -2px 0 #555;
+    color: #fff;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+    font-family: 'Minecraft', sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mc-btn:active {
+    box-shadow: inset 2px 2px 0 #333, inset -2px -2px 0 #ddd;
+    background: #6b6b6b;
+}
+
+.player-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #333;
+}
+
+#seek-bar {
+    flex: 1;
+    height: 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #555;
+    border: 1px solid #fff;
+    border-radius: 0;
+}
+#seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 16px;
+    background: #55FFFF;
+    border: 2px solid #000;
+    cursor: pointer;
+}
+
+/* --- Responsive Layout for Mobile --- */
+@media (max-width: 768px) {
+    .jukebox-layout {
+        flex-direction: column;
+        gap: 30px;
+        width: 95%;
+    }
+    .jukebox-container { order: 1; } /* Jukebox on top */
+    .disc-grid { order: 2; margin-bottom: 80px; } /* Discs below, space for player */
+    
+    #mc-player {
+        width: 90%;
+        left: 5%;
+        right: auto;
+        bottom: 10px;
+    }
+}
+/* --- Updated Player Controls --- */
+.player-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.mc-btn {
+    background: #8b8b8b;
+    border: 2px solid #000;
+    box-shadow: inset 2px 2px 0 #ddd, inset -2px -2px 0 #555;
+    width: 44px;
+    height: 34px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.mc-btn:active {
+    box-shadow: inset 2px 2px 0 #333, inset -2px -2px 0 #ddd;
+    background: #6b6b6b;
+}
+
+/* Specific styling for your pixel art icons */
+.control-icon {
+    width: 20px;
+    height: 20px;
+    image-rendering: pixelated;
+    pointer-events: none; /* Let clicks pass to button */
+}
+
+/* --- Volume Control --- */
+.player-volume {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 2px solid #555; /* Separator line */
+}
+
+.vol-label {
+    font-size: 12px;
+    color: #333;
+}
+
+#volume-slider {
+    flex: 1;
+    height: 6px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: #555;
+    border: 1px solid #fff;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 8px;
+    height: 14px;
+    background: #fff; /* White thumb for volume to distinguish from seek */
+    border: 2px solid #000;
+    cursor: pointer;
+}
+
+/* --- Minecraft Themed Sliders (Options Menu Style) --- */
+
+/* 1. Reset Default Browser Styles */
+input[type=range] {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    margin: 10px 0; /* Space for the large thumb */
+}
+
+/* 2. The Track (Dark Inventory Slot Look) */
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 14px;
+    cursor: pointer;
+    background: #000;
+    border: 2px solid #000;
+    /* The "Indented" 3D effect: Dark top/left, Light bottom/right */
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+}
+
+/* 3. The Thumb (Draggable Button) */
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 30px; /* Taller than the track */
+    width: 15px;  /* Rectangular handle */
+    background: #8b8b8b;
+    cursor: pointer;
+    margin-top: -10px; /* Centers the thumb on the track */
+    
+    /* Solid Black Border */
+    border: 2px solid #000;
+    border-radius: 0;
+    /* The "Popped Out" 3D Button effect */
+    box-shadow: inset 2px 2px 0 #ddd, inset -2px -2px 0 #555;
+}
+
+/* --- Firefox Support --- */
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 14px;
+    cursor: pointer;
+    background: #000;
+    border: 2px solid #000;
+    border-top: 2px solid #373737;
+    border-left: 2px solid #373737;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+}
+
+input[type=range]::-moz-range-thumb {
+    height: 30px;
+    width: 15px;
+    border: 2px solid #000;
+    background: #8b8b8b;
+    cursor: pointer;
+    box-shadow: inset 2px 2px 0 #ddd, inset -2px -2px 0 #555;
+    border-radius: 0;
+}
+
+/* Hover Effect for the Handle */
+input[type=range]:hover::-webkit-slider-thumb {
+    background: #9f9f9f; /* Slightly lighter when hovering */
+}
+
+#current-time, #duration {
+    min-width: 45px;       /* Fixed width large enough for "00:00" */
+    text-align: center;    /* Keeps text centered within that fixed space */
+    display: inline-block;
+    flex-shrink: 0;        /* Prevents the container from squishing them */
+    font-variant-numeric: tabular-nums; /* Ensures numbers are monospaced */
+}
+/* --- Collapsible Player Widget --- */
+#mc-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background: #c6c6c6;
+    border: 3px solid #000;
+    box-shadow: inset 2px 2px 0px #FFF, inset -2px -2px 0px #555, 4px 4px 0px rgba(0,0,0,0.5); 
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 500;
+    font-family: 'Minecraft', sans-serif;
+    
+    /* Animation Settings */
+    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); /* Bouncy spring effect */
+}
+
+/* State: Fully Hidden (Initial State) */
+.hidden-player {
+    transform: translateY(150%); /* Way off screen */
+}
+
+/* State: Minimized (Only Tab Visible) */
+.minimized-player {
+    transform: translateY(calc(100% - 30px)); /* Slide down, leaving 30px visible */
+}
+
+/* NEW: Toggle Tab Styling */
+#player-toggle {
+    position: absolute;
+    top: -30px; /* Sits on top of the main box */
+    right: -3px; /* Aligns with right border */
+    width: 40px;
+    height: 30px;
+    background: #c6c6c6;
+    border: 3px solid #000;
+    border-bottom: none; /* Merges with the main box */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    /* 3D Effect */
+    box-shadow: inset 2px 2px 0px #FFF, inset -2px 0px 0px #555;
+}
+
+#toggle-arrow {
+    font-size: 16px;
+    color: #333;
+    transition: transform 0.3s;
+}
+
+/* Rotate arrow when minimized */
+.minimized-player #toggle-arrow {
+    transform: rotate(180deg); /* Points UP to indicate "Open me" */
+}
+
+/* --- Mobile Specific Tweaks --- */
+@media (max-width: 768px) {
+    #mc-player {
+        width: 90%;
+        left: 5%;
+        right: auto;
+        bottom: 0; /* Stick to very bottom on mobile */
+        border-bottom: none; /* Looks like a drawer */
+    }
+    
+    /* When minimized on mobile, show just the tab at the bottom */
+    .minimized-player {
+        transform: translateY(100%); 
+    }
+    
+    #player-toggle {
+        top: -40px; /* Larger touch target for mobile */
+        height: 40px;
+        width: 60px;
+        right: 10px;
+    }
+}
