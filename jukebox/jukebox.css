@@ -15,6 +15,7 @@
 body {
     margin: 0;
     height: 100vh;
+    height: 100svh;
     width: 100vw;
     font-family: var(--mc-font);
     overflow: hidden;
@@ -70,9 +71,10 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 Columns */
     grid-template-rows: repeat(3, 1fr);    /* 3 Rows */
-    gap: 25px;
+    gap: 30px;
+    row-gap: 0px;
     background: rgba(0, 0, 0, 0.3); /* Subtle shelf backing */
-    padding: 20px;
+    padding: 0px;
     border: 3px solid #000;
     box-shadow: inset 0 0 20px #000;
 }
@@ -103,7 +105,7 @@ body {
     padding: 5px 8px;
     border: 2px solid #3f0858;
     position: absolute;
-    bottom: 110%;
+    bottom: 80%;
     left: 50%;
     transform: translateX(-50%);
     white-space: nowrap;

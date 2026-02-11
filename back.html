@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Import Minecraft Font if you have it in root/public */
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('./public/Minecraft.ttf');
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent; /* Transparent background */
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        /* The Button Style (Matches Lectern Close Button) */
+        #home-btn {
+            font-family: 'Minecraft', sans-serif;
+            font-size: 16px;
+            padding: 8px 20px;
+            border: 3px solid black;
+            background: #c6c6c6;
+            box-shadow: inset -2px -2px 0px #555, inset 2px 2px 0px #FFF;
+            cursor: pointer;
+            color: #333;
+            text-decoration: none;
+            display: inline-block;
+            user-select: none;
+        }
+
+        #home-btn:active {
+            background: #8b8b8b;
+            box-shadow: inset 2px 2px 0px #555, inset -2px -2px 0px #FFF;
+        }
+    </style>
+</head>
+<body>
+    <button id="home-btn">Back</button>
+
+    <script>
+        document.getElementById('home-btn').addEventListener('click', () => {
+            // Tell the PARENT window to reset the 'container' iframe
+            if (window.parent) {
+                const container = window.parent.document.getElementById('container');
+                if (container) {
+                    container.src = 'home.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -9,6 +9,25 @@
 	<body>
     <iframe id="background" src="background.html"></iframe>
     <iframe id="container" src="home.html"></iframe>
+	<iframe id="back-nav" src="back.html" style="pointer-events: auto; display: none;"></iframe>
     <iframe id="player" class="hidden" src="./jukebox/player.html"></iframe>
+	<script>
+            // ... (Keep your existing script here) ...
+            const container = document.getElementById('container');
+            const backBtn = document.getElementById('back-nav');
+
+            container.onload = function() {
+                try {
+                    const currentPath = container.contentWindow.location.href;
+                    if (currentPath.includes('home.html') || currentPath.includes('island.html')) {
+                        backBtn.style.display = 'none'; 
+                    } else {
+                        backBtn.style.display = 'block'; 
+                    }
+                } catch (e) {
+                    console.log("Navigation check failed:", e);
+                }
+            };
+        </script>
 	</body>
 </html>

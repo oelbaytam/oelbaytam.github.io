@@ -42,3 +42,14 @@ body{
     pointer-events: none;
     border: none;
 }
+
+#back-nav {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 160px; /* Width of button */
+    height: 60px; /* Height of button */
+    border: none;
+    z-index: 2000; /* Above everything */
+    pointer-events: none;
+}

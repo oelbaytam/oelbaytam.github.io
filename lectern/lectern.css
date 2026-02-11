@@ -19,8 +19,8 @@ a:link, a:visited {
 body {
     margin: 0;
     height: 100vh;
+    height: 100svh;
     width: 100vw;
-
     font-family: var(--mc-font);
     overflow: hidden;
     display: flex;
